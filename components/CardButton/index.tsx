@@ -1,5 +1,6 @@
 import { Box, Button, CheckCircleIcon, Heading, Icon, Pressable, SlashIcon } from "@gluestack-ui/themed";
 import { useState } from "react";
+import Loading from "../Loading";
 
 export interface CardButtonProps{
     id: string;
@@ -7,10 +8,15 @@ export interface CardButtonProps{
 }
 
 export function CardButton({id}: CardButtonProps){
-    const [ligado, setLigado] = useState<boolean>(false)
+    const [ligado, setLigado] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     function changeTurnOn(){
         setLigado(!ligado)
     }
+    if(loading){
+        return <Loading />
+    }
+
     return (
         <Pressable 
             w={390} 
