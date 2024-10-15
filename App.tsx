@@ -6,14 +6,14 @@ import Title from './components/Title';
 import {CardButton, CardButtonProps} from './components/CardButton';
 
 const cardArrays: CardButtonProps[] = [
-  { "id": "1", "status": "ligado" },
-  { "id": "2", "status": "desligado" },
-  { "id": "3", "status": "ligado" },
-  { "id": "4", "status": "desligado" },
-  { "id": "5", "status": "ligado" },
-  { "id": "6", "status": "desligado" },
-  { "id": "7", "status": "ligado" },
-  { "id": "8", "status": "desligado" }
+  { "id": "1" },
+  { "id": "2" },
+  { "id": "3" },
+  { "id": "4" },
+  { "id": "5" },
+  { "id": "6" },
+  { "id": "7" },
+  { "id": "8" }
 ]
 
 export default function App() {
@@ -29,7 +29,7 @@ const Home = () => {
         <Title title='Escolha o LED a ser ligado !' />
           <VStack h='$5/6' bg='$white' flexDirection='column' alignItems='center' justifyContent='flex-start' marginTop='$10' space='4xl'>
             {cardArrays.map((value, index) => {
-              return (<CardButton key={index} id={value.id} status={value.status} />);
+              return (<CardButton key={index} id={value.id} />);
             })}
           </VStack>
     </Container>
