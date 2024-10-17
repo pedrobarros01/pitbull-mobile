@@ -15,32 +15,45 @@ export function CardButton({id}: CardButtonProps){
     const [ligado, setLigado] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const toast = useToast();
-    async function changeTurnOn(){
+    async function changeTurnOn() {
         try {
-            //setLoading(true);
-            //let id_number = Number.parseInt(id);
-            //const response = await api.get(`/led/${id_number - 1}`);
-            //throw new AppError("Deu Erro");
+            setLoading(true);
+            let id_number = Number.parseInt(id);
+            const url = `http://192.168.64.241:8000/led/${id_number - 1}`;
+
+            
+    
+            const response = await fetch(url);
+    
+            if (!response.ok) {
+                throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+            }
+    
+            const data = await response.json();
+            console.log('LED controlado com sucesso:', data);
             setLigado(!ligado);
-        }catch(error){
+        } catch (error) {
+            console.error('Erro ao controlar o LED:', error);
+    
             const isAppError = error instanceof AppError;
             const title = isAppError ? error.mensagem : "Não foi possível ligar o LED";
-            
+    
             toast.show({
                 placement: "bottom",
                 render: ({ id }) => {
-                  const toastId = "toast-" + id
-                  return (
-                    <Toast nativeID={toastId} action="error" variant="accent">
-                        <ToastTitle>{title}</ToastTitle>
-                    </Toast>
-                  )
+                    const toastId = "toast-" + id;
+                    return (
+                        <Toast nativeID={toastId} action="error" variant="accent">
+                            <ToastTitle>{title}</ToastTitle>
+                        </Toast>
+                    );
                 },
-              })
-        }finally{
+            });
+        } finally {
             setLoading(false);
         }
     }
+    
     if(loading){
         return <Loading />
     }
